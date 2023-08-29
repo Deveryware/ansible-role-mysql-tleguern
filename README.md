@@ -42,6 +42,7 @@ collection community.mysql >= 3.1.0 (included in ansible >= 6.x)
 | `mysql_users` | The MySQL users and their privileges | `[]` |
 | `mysql_enabled_on_startup` | Enable mysql service | `true` |
 | `mysql_service_state` | Expected state of mysql service after configuration | `started` |
+| `mysql_root_cnf_sections` | List of sections to put in /root/.my.cnf | `['mysql', 'client', 'mysqldump', 'mysqladmin', 'mysqlcheck']'
 
 Most of the time `mysql_db_admin_user` is `root`, this is chosen by operating systems packagers and therefore should not be changed.
 

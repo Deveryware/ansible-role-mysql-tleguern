@@ -1,5 +1,10 @@
 {{ ansible_managed | comment }}
 
-[client]
+{% for section in mysql_root_cnf_sections %}
+[{{ section }}]
 user="{{ mysql_db_admin_user }}"
+host=localhost
 password="{{ __mysql_db_admin_password }}"
+socket="{{ mysql_socket }}"
+
+{% endfor %}
