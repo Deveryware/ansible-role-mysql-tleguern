@@ -18,9 +18,13 @@ mysql_config: "{{ __mysql_system_config | default('dummy') }}"
 mysql_socket: "{{ __mysql_socket | default('dummy') }}"
 
 mysql_root_cnf_sections:
-  - mysql
-  - client
-  - mysqldump
-  - mysqladmin
-  - mysqlcheck
+  - name: mysql
+    user: "{{ mysql_db_admin_user }}"
+    password: "{{ __mysql_db_admin_password }}"
+    host: 'localhost'
+    socket: "{{ mysql_socket }}"
+  - name: client
+  - name: mysqldump
+  - name: mysqladmin
+  - name: mysqlcheck
 __mysql_providers: [ 'mariadb', 'mysql' ]
