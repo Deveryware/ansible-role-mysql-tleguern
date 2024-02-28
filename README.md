@@ -42,8 +42,28 @@ collection community.mysql >= 3.1.0 (included in ansible >= 6.x)
 | `mysql_users` | The MySQL users and their privileges | `[]` |
 | `mysql_enabled_on_startup` | Enable mysql service | `true` |
 | `mysql_service_state` | Expected state of mysql service after configuration | `started` |
+| `mysql_root_cnf_sections` | dictionnary of sections to put in /root/.my.cnf | `[ {'name': 'mysql', 'user': "{{ mysql_db_admin_user }}", 'password': "{{ __mysql_db_admin_password }}", 'host': 'localhost', 'socket': "{{ mysql_socket }}"}, {'name': 'client'}, {'name': 'mysqldump'}, {'name': 'mysqladmin'}, {'name': 'mysqlcheck'}]'
 
 Most of the time `mysql_db_admin_user` is `root`, this is chosen by operating systems packagers and therefore should not be changed.
+
+mysql_root_cnf_sections is a dictionnary as described above:
+
+```yaml
+mysql_root_cnf_sections:
+  - name: section_name
+    user: mysql_user
+    password: mysql_password
+    host: hostname
+    socket: /path/to/mysql_socket
+```
+
+When creating /root/.my.cnf, for each section, if not all keys are defined (name is the only one mandatory), those are the default:
+```yaml
+user: "{{ mysql_db_admin_user }}"
+password: "{{ __mysql_db_admin_password }}"
+host: 'localhost'
+socket: "{{ mysql_socket }}"
+```
 
 ### Debian
 
